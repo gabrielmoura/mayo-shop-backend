@@ -1,12 +1,14 @@
 import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { ApiResponse } from '@nestjs/swagger';
+import { ConfigService } from '@nestjs/config';
 
-@Controller()
-export class AppController {
-  constructor(private readonly appService: AppService) {}
+@Controller('/')
+export class HomeController {
+  constructor(private config: ConfigService) {}
 
+  @ApiResponse({ status: 200, description: 'Bem vindo' })
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  async listUsuarios() {
+    return 'Bem vindo a API . V' + this.config.get('version');
   }
 }
